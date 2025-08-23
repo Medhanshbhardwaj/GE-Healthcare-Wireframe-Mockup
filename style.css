@@ -1,0 +1,25 @@
+/* style.css */
+
+/* This file is intentionally minimal because the primary styling is handled by Tailwind CSS, */
+/* which is included via a CDN link in the index.html file. */
+/* You can add custom CSS rules here to override or supplement Tailwind's utility classes. */
+
+body {
+    font-family: sans-serif;
+}
+
+/* Hides the arrows on number input fields for a cleaner look */
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+input[type=number] {
+    -moz-appearance: textfield;
+}
+
+/* Style for the quote summary sticky panel */
+.sticky {
+    position: sticky;
+    top: 6rem; /* Adjust this value based on your header's height */
+}
