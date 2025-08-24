@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>GE HealthCare AI Configurator</title>
+    <!-- Tailwind CSS CDN for styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Inter font from Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Link to the custom CSS file -->
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Custom font and base styles */
+        body { font-family: 'Inter', sans-serif; margin: 0; padding: 0; }
+        .has-[:checked]:bg-blue-50 { background-color: #eff6ff; }
+        .has-[:checked]:border-blue-400 { border-color: #60a5fa; }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-blue-50 to-white">
+    <!-- Inline SVG icons for use in the app -->
+    <svg xmlns="http://www.w3.org/2000/svg" class="hidden">
+        <symbol id="icon-search" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></symbol>
+        <symbol id="icon-settings" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 0 2.4l-.15.08a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.38a2 2 0 0 0-.73-2.73l-.15-.1a2 2 0 0 1 0-2.4l.15-.08a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"></path><circle cx="12" cy="12" r="3"></circle></symbol>
+        <symbol id="icon-map-pin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></symbol>
+        <symbol id="icon-dollar-sign" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></symbol>
+        <symbol id="icon-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></symbol>
+        <symbol id="icon-alert-circle" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></symbol>
+        <symbol id="icon-lightbulb" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6M10 22h4M12 2a7 7 0 0 0-7 7c0 3.03 1.09 5.2 2.5 6.5C9 17 12 19 12 19s3-2 4.5-3.5C17.91 14.2 19 12.03 19 9a7 7 0 0 0-7-7z"></path></symbol>
+        <symbol id="icon-download" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></symbol>
+        <symbol id="icon-trending-up" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline><polyline points="17 6 23 6 23 12"></polyline></symbol>
+        <symbol id="icon-x" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></symbol>
+    </svg>
+
+    <!-- Header section -->
+    <header class="bg-white shadow-sm border-b sticky top-0 z-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center space-x-4">
+                    <div class="w-12 h-12 bg-blue-600 rounded-lg flex items-center justify-center"><svg class="w-6 h-6 text-white"><use href="#icon-settings"></use></svg></div>
+                    <div>
+                        <h1 class="text-xl md:text-2xl font-bold text-gray-900">GE HealthCare AI Configurator</h1>
+                        <p class="text-sm text-gray-600">Your intelligent quoting and analysis platform</p>
+                    </div>
+                </div>
+                <button id="reset-button" class="px-4 py-2 text-sm font-medium text-blue-600 border border-blue-600 rounded-lg hover:bg-blue-50 transition-colors">Reset</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main content area -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <!-- Progress bar -->
+        <div class="w-full max-w-2xl mx-auto mb-10">
+            <div class="flex items-center justify-between">
+                <div id="step-1-container" class="flex flex-col items-center text-center">
+                    <div class="w-10 h-10 rounded-full flex items-center justify-center text-white font-semibold transition-colors bg-blue-600"><span id="step-1-icon">1</span></div>
+                    <p class="mt-2 text-xs font-medium text-blue-600">Equipment</p>
+                </div>
+                <div id="step-1-line" class="flex-1 h-1 mx-2 transition-colors bg-gray-300"></div>
+                <div id="step-2-container" class="flex flex-col items-center text-center">
+                    <div class="w-10 h-10 rounded-full flex items-center justify-center text-white font-semibold transition-colors bg-gray-300"><span id="step-2-icon">2</span></div>
+                    <p class="mt-2 text-xs font-medium text-gray-500">Accessories</p>
+                </div>
+                <div id="step-2-line" class="flex-1 h-1 mx-2 transition-colors bg-gray-300"></div>
+                <div id="step-3-container" class="flex flex-col items-center text-center">
+                    <div class="w-10 h-10 rounded-full flex items-center justify-center text-white font-semibold transition-colors bg-gray-300"><span id="step-3-icon">3</span></div>
+                    <p class="mt-2 text-xs font-medium text-gray-500">Site</p>
+                </div>
+                <div id="step-3-line" class="flex-1 h-1 mx-2 transition-colors bg-gray-300"></div>
+                <div id="step-4-container" class="flex flex-col items-center text-center">
+                    <div class="w-10 h-10 rounded-full flex items-center justify-center text-white font-semibold transition-colors bg-gray-300"><span id="step-4-icon">4</span></div>
+                    <p class="mt-2 text-xs font-medium text-gray-500">Quote</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <!-- Left panel with steps -->
+            <div class="lg:col-span-2 space-y-6">
+                <!-- Step 1: Equipment Selection -->
+                <div id="step-1-panel" class="bg-white rounded-xl shadow-sm border p-6">
+                    <div class="flex items-center space-x-3 mb-4"><div class="w-8 h-8 bg-blue-100 rounded-lg flex items-center justify-center"><svg class="w-4 h-4 text-blue-600"><use href="#icon-search"></use></svg></div><h2 class="text-xl font-semibold text-gray-900">1. Select Medical Equipment</h2></div>
+                    <div id="equipment-list" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <!-- Equipment options will be injected here by JavaScript -->
+                    </div>
+                </div>
+
+                <!-- Step 2: Accessories Selection (initially hidden) -->
+                <div id="step-2-panel" class="bg-white rounded-xl shadow-sm border p-6 hidden">
+                    <div class="flex items-center space-x-3 mb-4"><div class="w-8 h-8 bg-green-100 rounded-lg flex items-center justify-center"><svg class="w-4 h-4 text-green-600"><use href="#icon-lightbulb"></use></svg></div><h2 class="text-xl font-semibold text-gray-900">2. Smart Accessories Recommendation</h2></div>
+                    <div id="accessories-list" class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                        <!-- Accessory options will be injected here by JavaScript -->
+                    </div>
+                    <button id="continue-to-site" class="mt-4 px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">Continue to Site Details</button>
+                </div>
+
+                <!-- Step 3: Site Requirements (initially hidden) -->
+                <div id="step-3-panel" class="bg-white rounded-xl shadow-sm border p-6 hidden">
+                    <div class="flex items-center space-x-3 mb-4"><div class="w-8 h-8 bg-orange-100 rounded-lg flex items-center justify-center"><svg class="w-4 h-4 text-orange-600"><use href="#icon-map-pin"></use></svg></div><h2 class="text-xl font-semibold text-gray-900">3. Site Feasibility Check</h2></div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div><label class="block text-sm font-medium text-gray-700 mb-1">Room Length (m)</label><input type="number" id="room-length" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="e.g., 8" /></div>
+                        <div><label class="block text-sm font-medium text-gray-700 mb-1">Room Width (m)</label><input type="number" id="room-width" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="e.g., 6" /></div>
+                        <div><label class="block text-sm font-medium text-gray-700 mb-1">Power Capacity (kW)</label><input type="number" id="power-capacity" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="e.g., 150" /></div>
+                        <div><label class="block text-sm font-medium text-gray-700 mb-1">Location</label><select id="location" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"><option value="india">India</option><option value="usa">USA</option><option value="emea">EMEA</option></select></div>
+                    </div>
+                    <div id="compatibility-check" class="mt-4 p-4 bg-gray-50 rounded-lg hidden">
+                        <h3 class="font-medium text-gray-900 mb-2">Compatibility Check</h3>
+                        <div id="compatibility-results" class="space-y-2"></div>
+                    </div>
+                    <button id="generate-quote" class="mt-4 px-6 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors disabled:bg-gray-400">Generate Instant Quote</button>
+                </div>
+            </div>
+
+            <!-- Right panel with quote summary -->
+            <div class="lg:col-span-1">
+                <div class="bg-white rounded-xl shadow-sm border p-6 sticky top-24">
+                    <div class="flex items-center space-x-3 mb-4"><div class="w-8 h-8 bg-green-100 rounded-lg flex items-center justify-center"><svg class="w-4 h-4 text-green-600"><use href="#icon-dollar-sign"></use></svg></div><h2 class="text-xl font-semibold text-gray-900">Quote Summary</h2></div>
+                    <div id="quote-state-container">
+                        <div id="loading-spinner" class="flex items-center justify-center py-8 hidden"><div class="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div><span class="ml-2">Generating...</span></div>
+                        <div id="quote-summary-content" class="space-y-4 hidden">
+                            <!-- Quote details will be injected here by JavaScript -->
+                        </div>
+                        <div id="placeholder" class="text-center py-8 text-gray-500">
+                            <svg class="w-12 h-12 mx-auto mb-2 opacity-30"><use href="#icon-settings"></use></svg>
+                            <p>Select equipment to start</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Modal for TCO & ROI Analysis -->
+    <div id="tco-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+        <!-- Modal content will be injected by JavaScript -->
+    </div>
+
+    <!-- JavaScript logic -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script>
+        // --- Mock Data ---
+        const equipment = [
+            { id: 'ct-750hd', name: 'Revolution CT 750 HD', category: 'Imaging', basePrice: 450000, powerReq: '440V, 100kW', spaceReq: { length: 6, width: 5 }, description: 'High-definition CT scanner for advanced diagnostics.', tcoData: { maintenance: 0.06, consumables: 15000, revenuePerProcedure: 4000, proceduresPerYear: 2500 } },
+            { id: 'mri-3t', name: 'SIGNA Premier 3.0T MRI', category: 'Imaging', basePrice: 1200000, powerReq: '440V, 150kW', spaceReq: { length: 8, width: 6 }, description: '3.0T MRI system with AI-powered imaging capabilities.', tcoData: { maintenance: 0.08, consumables: 25000, revenuePerProcedure: 8000, proceduresPerYear: 2000 } },
+            { id: 'ultrasound-logiq', name: 'LOGIQ P10 Ultrasound', category: 'Visualization', basePrice: 85000, powerReq: '220V, 5kW', spaceReq: { length: 2, width: 1.5 }, description: 'Premium ultrasound system with AI-driven workflow.', tcoData: { maintenance: 0.04, consumables: 5000, revenuePerProcedure: 1500, proceduresPerYear: 3000 } },
+            { id: 'ventilator-carescape', name: 'Carescape R860 Ventilator', category: 'Patient Care', basePrice: 35000, powerReq: '220V, 2kW', spaceReq: { length: 1, width: 1 }, description: 'Advanced ventilator with smart respiratory protocols.', tcoData: { maintenance: 0.05, consumables: 8000, revenuePerProcedure: 500, proceduresPerYear: 1500 } }
+        ];
+        const accessories = {
+            'ct-750hd': [{ id: 'ct-table', name: 'Patient Table Extension', price: 15000, essential: true }, { id: 'ct-contrast', name: 'Contrast Injection System', price: 25000, essential: false }, { id: 'ct-shield', name: 'Radiation Shielding', price: 35000, essential: true }],
+            'mri-3t': [{ id: 'mri-coils', name: 'Specialized RF Coils Set', price: 45000, essential: true }, { id: 'mri-helium', name: 'Helium Recovery System', price: 65000, essential: true }, { id: 'mri-console', name: 'Operator Console', price: 22000, essential: false }],
+            'ultrasound-logiq': [{ id: 'us-probes', name: 'Transducer Probe Set', price: 8000, essential: true }, { id: 'us-cart', name: 'Mobile Cart', price: 3000, essential: false }, { id: 'us-printer', name: 'Thermal Printer', price: 1500, essential: false }],
+            'ventilator-carescape': [{ id: 'vent-circuits', name: 'Breathing Circuits (Annual)', price: 2000, essential: true }, { id: 'vent-monitor', name: 'Additional Patient Monitor', price: 8000, essential: false }]
+        };
+        const services = [{ id: 'installation', name: 'Professional Installation', price: 15000, essential: true }, { id: 'training', name: 'Staff Training Program', price: 8000, essential: false }];
+        const taxRates = { india: { gst: 0.12, import_duty: 0.075, bis_certification: 5000 }, usa: { gst: 0.08, import_duty: 0.0, bis_certification: 0 }, emea: { gst: 0.20, import_duty: 0.0, bis_certification: 0 }};
+
+        // --- DOM Elements ---
+        const equipmentList = document.getElementById('equipment-list');
+        const accessoriesPanel = document.getElementById('step-2-panel');
+        const accessoriesList = document.getElementById('accessories-list');
+        const sitePanel = document.getElementById('step-3-panel');
+        const quoteSummary = document.getElementById('quote-summary-content');
+        const quoteStateContainer = document.getElementById('quote-state-container');
+        const loadingSpinner = document.getElementById('loading-spinner');
+        const placeholder = document.getElementById('placeholder');
+        const tcoModal = document.getElementById('tco-modal');
+        const roomLengthInput = document.getElementById('room-length');
+        const roomWidthInput = document.getElementById('room-width');
+        const powerCapacityInput = document.getElementById('power-capacity');
+        const locationSelect = document.getElementById('location');
+        const compatibilityCheck = document.getElementById('compatibility-check');
+        const compatibilityResults = document.getElementById('compatibility-results');
+        const continueToSiteButton = document.getElementById('continue-to-site');
+        const generateQuoteButton = document.getElementById('generate-quote');
+        const resetButton = document.getElementById('reset-button');
+
+        // --- State Variables ---
+        let selectedEquipment = null;
+        let compatibleAccessories = [];
+        let selectedAccessories = [];
+        let siteRequirements = { roomLength: '', roomWidth: '', powerCapacity: '', location: 'india' };
+        let currentQuote = null;
+        let currentStep = 1;
+
+        // --- Helper Functions ---
+        function updateUIForStep(step) {
+            currentStep = step;
+            document.getElementById('step-1-container').classList.toggle('active', step >= 1);
+            document.getElementById('step-2-container').classList.toggle('active', step >= 2);
+            document.getElementById('step-3-container').classList.toggle('active', step >= 3);
+            document.getElementById('step-4-container').classList.toggle('active', step >= 4);
+
+            document.getElementById('step-1-container').querySelector('p').classList.toggle('text-blue-600', step >= 1);
+            document.getElementById('step-2-container').querySelector('p').classList.toggle('text-blue-600', step >= 2);
+            document.getElementById('step-3-container').querySelector('p').classList.toggle('text-blue-600', step >= 3);
+            document.getElementById('step-4-container').querySelector('p').classList.toggle('text-blue-600', step >= 4);
+
+            document.getElementById('step-1-line').classList.toggle('bg-blue-600', step > 1);
+            document.getElementById('step-2-line').classList.toggle('bg-blue-600', step > 2);
+            document.getElementById('step-3-line').classList.toggle('bg-blue-600', step > 3);
+            
+            // Update step numbers or checkmarks
+            const steps = [1, 2, 3, 4];
+            steps.forEach(s => {
+                const stepIcon = document.getElementById(`step-${s}-icon`);
+                if (s < currentStep) {
+                    stepIcon.innerHTML = `<svg class="w-6 h-6"><use href="#icon-check"></use></svg>`;
+                    stepIcon.parentNode.classList.remove('bg-gray-300');
+                    stepIcon.parentNode.classList.add('bg-blue-600');
+                } else {
+                    stepIcon.innerHTML = s;
+                    stepIcon.parentNode.classList.remove('bg-blue-600');
+                    stepIcon.parentNode.classList.add('bg-gray-300');
+                    if (s === currentStep) {
+                        stepIcon.parentNode.classList.add('bg-blue-600');
+                    }
+                }
+            });
+
+            accessoriesPanel.classList.toggle('hidden', step < 2);
+            sitePanel.classList.toggle('hidden', step < 3);
+        }
+
+        function renderEquipmentList() {
+            equipmentList.innerHTML = equipment.map(eq => `
+                <div class="equipment-card p-4 border-2 rounded-lg cursor-pointer transition-all hover:shadow-md hover:scale-105" data-id="${eq.id}">
+                    <div class="flex justify-between items-start mb-2"><h3 class="font-semibold text-gray-900">${eq.name}</h3><span class="text-xs bg-gray-100 text-gray-700 px-2 py-1 rounded-full">${eq.category}</span></div>
+                    <p class="text-sm text-gray-600 mb-2 h-10">${eq.description}</p>
+                    <div class="text-sm text-gray-500 space-y-1"><p><strong>Power:</strong> ${eq.powerReq}</p><p><strong>Space:</strong> ${eq.spaceReq.length}m × ${eq.spaceReq.width}m</p></div>
+                    <div class="mt-2 text-lg font-bold text-blue-600">₹${eq.basePrice.toLocaleString('en-IN')}</div>
+                </div>
+            `).join('');
+
+            document.querySelectorAll('.equipment-card').forEach(card => {
+                card.addEventListener('click', (e) => {
+                    document.querySelectorAll('.equipment-card').forEach(c => c.classList.remove('border-blue-500', 'bg-blue-50', 'shadow-lg'));
+                    card.classList.add('border-blue-500', 'bg-blue-50', 'shadow-lg');
+                    selectedEquipment = equipment.find(eq => eq.id === card.dataset.id);
+                    if (currentStep < 2) updateUIForStep(2);
+                    renderAccessoriesList();
+                });
+            });
+        }
+
+        function renderAccessoriesList() {
+            compatibleAccessories = accessories[selectedEquipment.id] || [];
+            selectedAccessories = compatibleAccessories.filter(acc => acc.essential).map(acc => acc.id);
+            accessoriesList.innerHTML = compatibleAccessories.map(acc => `
+                <label class="flex items-center space-x-3 p-3 border rounded-lg cursor-pointer has-[:checked]:bg-blue-50 has-[:checked]:border-blue-400">
+                    <input type="checkbox" data-id="${acc.id}" class="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500" ${acc.essential ? 'checked' : ''} />
+                    <div class="flex-1">
+                        <div class="flex items-center space-x-2">
+                            <span class="font-medium">${acc.name}</span>
+                            ${acc.essential ? `<span class="text-xs bg-red-100 text-red-800 px-2 py-1 rounded-full font-semibold">Essential</span>` : ''}
+                        </div>
+                        <span class="text-sm text-gray-600">₹${acc.price.toLocaleString('en-IN')}</span>
+                    </div>
+                </label>
+            `).join('');
+
+            document.querySelectorAll('#accessories-list input[type="checkbox"]').forEach(input => {
+                input.addEventListener('change', (e) => {
+                    const accId = e.target.dataset.id;
+                    if (e.target.checked) {
+                        if (!selectedAccessories.includes(accId)) {
+                            selectedAccessories.push(accId);
+                        }
+                    } else {
+                        selectedAccessories = selectedAccessories.filter(id => id !== accId);
+                    }
+                });
+            });
+        }
+        
+        function checkSiteCompatibility() {
+            if (!selectedEquipment || !siteRequirements.roomLength || !siteRequirements.roomWidth || !siteRequirements.powerCapacity) return null;
+            const spaceOk = parseFloat(siteRequirements.roomLength) >= selectedEquipment.spaceReq.length && parseFloat(siteRequirements.roomWidth) >= selectedEquipment.spaceReq.width;
+            const powerOk = parseFloat(siteRequirements.powerCapacity) >= parseFloat(selectedEquipment.powerReq.split(',')[1]);
+            return { space: spaceOk, power: powerOk, overall: spaceOk && powerOk };
+        }
+        
+        function updateCompatibilityUI() {
+            const compatibility = checkSiteCompatibility();
+            if (!compatibility) {
+                compatibilityCheck.classList.add('hidden');
+                generateQuoteButton.disabled = true;
+                return;
+            }
+            compatibilityCheck.classList.remove('hidden');
+            compatibilityResults.innerHTML = `
+                <div class="flex items-center space-x-2">
+                    <svg class="w-4 h-4 ${compatibility.space ? 'text-green-500' : 'text-red-500'}"><use href="#icon-${compatibility.space ? 'check' : 'alert-circle'}"/></svg>
+                    <span class="${compatibility.space ? 'text-green-700' : 'text-red-700'}">Space ${compatibility.space ? 'Met' : 'Not Met'}</span>
+                </div>
+                <div class="flex items-center space-x-2">
+                    <svg class="w-4 h-4 ${compatibility.power ? 'text-green-500' : 'text-red-500'}"><use href="#icon-${compatibility.power ? 'check' : 'alert-circle'}"/></svg>
+                    <span class="${compatibility.power ? 'text-green-700' : 'text-red-700'}">Power ${compatibility.power ? 'Met' : 'Not Met'}</span>
+                </div>
+            `;
+            generateQuoteButton.disabled = !compatibility.overall;
+        }
+
+        function generateQuote() {
+            loadingSpinner.classList.remove('hidden');
+            quoteStateContainer.classList.add('opacity-50', 'pointer-events-none');
+            placeholder.classList.add('hidden');
+            quoteSummary.classList.add('hidden');
+
+            setTimeout(() => {
+                const eqData = equipment.find(eq => eq.id === selectedEquipment.id);
+                const accData = compatibleAccessories.filter(acc => selectedAccessories.includes(acc.id));
+                const servData = services.filter(svc => svc.essential);
+                const costs = {
+                    equipment: eqData.basePrice,
+                    accessories: accData.reduce((sum, acc) => sum + acc.price, 0),
+                    services: servData.reduce((sum, svc) => sum + svc.price, 0),
+                };
+                costs.subtotal = costs.equipment + costs.accessories + costs.services;
+                const taxes = taxRates[siteRequirements.location];
+                costs.gst = costs.subtotal * taxes.gst;
+                costs.importDuty = costs.equipment * taxes.import_duty;
+                costs.bisCertification = taxes.bis_certification;
+                costs.total = costs.subtotal + costs.gst + costs.importDuty + costs.bisCertification;
+
+                currentQuote = {
+                    equipment: eqData,
+                    accessories: accData,
+                    services: servData,
+                    costs,
+                    compatibility: checkSiteCompatibility(),
+                    quoteNumber: 'GE-' + Date.now().toString().slice(-8),
+                    validUntil: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toLocaleDateString()
+                };
+
+                loadingSpinner.classList.add('hidden');
+                quoteStateContainer.classList.remove('opacity-50', 'pointer-events-none');
+                quoteSummary.classList.remove('hidden');
+                updateUIForStep(4);
+                renderQuoteSummary();
+            }, 1500);
+        }
+
+        function renderFinancingCalculator(totalCost) {
+            const term = 36;
+            const interestRate = 8.5;
+            const principal = totalCost;
+            const monthlyRate = (interestRate / 100) / 12;
+            const numPayments = term;
+            let monthlyPayment = 0;
+            if (principal > 0 && monthlyRate > 0) {
+                monthlyPayment = (principal * monthlyRate * Math.pow(1 + monthlyRate, numPayments)) / (Math.pow(1 + monthlyRate, numPayments) - 1);
+            }
+            return `
+                <div class="mt-4 p-3 bg-gray-50 rounded-lg">
+                    <h4 class="font-semibold text-gray-900 mb-2">Financing Calculator</h4>
+                    <div class="space-y-2">
+                        <div>
+                            <label class="text-xs text-gray-600 block">Loan Term (Months)</label>
+                            <select id="loan-term" class="w-full p-1 border border-gray-300 rounded-md text-sm">
+                                <option value="24">24 Months</option>
+                                <option value="36" selected>36 Months</option>
+                                <option value="48">48 Months</option>
+                                <option value="60">60 Months</option>
+                            </select>
+                        </div>
+                        <div class="text-center">
+                            <p class="text-xs text-gray-500">Estimated Monthly Payment at ${interestRate}% APR:</p>
+                            <p id="monthly-payment" class="text-xl font-bold text-blue-600">₹${monthlyPayment.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</p>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderQuoteSummary() {
+            if (!currentQuote) return;
+            const costs = currentQuote.costs;
+            quoteSummary.innerHTML = `
+                <div class="p-3 bg-blue-50 rounded-lg text-center"><div class="text-sm text-blue-600 font-medium">Quote #${currentQuote.quoteNumber}</div><div class="text-xs text-blue-500">Valid until: ${currentQuote.validUntil}</div></div>
+                <div class="space-y-2 text-sm">
+                    <div class="flex justify-between"><span>Equipment</span><span>₹${costs.equipment.toLocaleString('en-IN')}</span></div>
+                    <div class="flex justify-between"><span>Accessories</span><span>₹${costs.accessories.toLocaleString('en-IN')}</span></div>
+                    <div class="flex justify-between"><span>Services</span><span>₹${costs.services.toLocaleString('en-IN')}</span></div><hr />
+                    <div class="flex justify-between font-semibold"><span>Subtotal</span><span>₹${costs.subtotal.toLocaleString('en-IN')}</span></div>
+                    <div class="flex justify-between text-xs text-gray-500"><span>GST/VAT</span><span>₹${costs.gst.toLocaleString('en-IN')}</span></div>
+                    <div class="flex justify-between text-xs text-gray-500"><span>Import Duty</span><span>₹${costs.importDuty.toLocaleString('en-IN')}</span></div>
+                    <div class="flex justify-between text-xs text-gray-500"><span>BIS Certification</span><span>₹${costs.bisCertification.toLocaleString('en-IN')}</span></div><hr />
+                    <div class="flex justify-between font-bold text-lg"><span>Total</span><span class="text-green-600">₹${costs.total.toLocaleString('en-IN')}</span></div>
+                </div>
+                ${renderFinancingCalculator(costs.total)}
+                <div class="space-y-2 pt-2">
+                    <button id="tco-btn" class="w-full flex items-center justify-center px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors">
+                        <svg class="w-4 h-4 inline mr-2"><use href="#icon-trending-up"></use></svg> Analyze 5-Year TCO & ROI
+                    </button>
+                    <button id="download-btn" class="w-full flex items-center justify-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
+                        <svg class="w-4 h-4 inline mr-2"><use href="#icon-download"></use></svg> Download Quote
+                    </button>
+                </div>
+            `;
+            // Add event listeners for the newly injected buttons
+            document.getElementById('tco-btn').addEventListener('click', () => renderTCOModal());
+            document.getElementById('download-btn').addEventListener('click', () => downloadQuoteAsPDF());
+        }
+
+        function renderTCOModal() {
+            const quote = currentQuote;
+            if (!quote) return;
+            const { equipment, costs } = quote;
+            const { maintenance, consumables, revenuePerProcedure, proceduresPerYear } = equipment.tcoData;
+            const annualMaintenance = equipment.basePrice * maintenance;
+            const totalMaintenance = annualMaintenance * 5;
+            const totalConsumables = consumables * 5;
+            const tco = costs.total + totalMaintenance + totalConsumables;
+            const annualRevenue = revenuePerProcedure * proceduresPerYear;
+            const totalRevenue = annualRevenue * 5;
+            const netGain = totalRevenue - tco;
+            const roi = (netGain / tco) * 100;
+            
+            tcoModal.classList.remove('hidden');
+            tcoModal.innerHTML = `
+                <div class="bg-white rounded-xl shadow-2xl p-6 w-full max-w-2xl transform transition-all">
+                    <div class="flex justify-between items-center mb-4">
+                        <h3 class="text-2xl font-bold text-gray-900">5-Year TCO & ROI Analysis</h3>
+                        <button id="close-tco-modal" class="text-gray-500 hover:text-gray-800"><svg class="w-6 h-6"><use href="#icon-x"></use></svg></button>
+                    </div>
+                    <p class="text-sm text-gray-600 mb-4">For: <strong>${equipment.name}</strong></p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="bg-red-50 p-4 rounded-lg">
+                            <h4 class="text-lg font-semibold text-red-800 mb-2">Total Cost of Ownership (TCO)</h4>
+                            <ul class="space-y-1 text-sm">
+                                <li class="flex justify-between"><span>Initial Investment:</span> <strong>₹${costs.total.toLocaleString('en-IN')}</strong></li>
+                                <li class="flex justify-between"><span>Maintenance (5yr):</span> <span>₹${totalMaintenance.toLocaleString('en-IN')}</span></li>
+                                <li class="flex justify-between"><span>Consumables (5yr):</span> <span>₹${totalConsumables.toLocaleString('en-IN')}</span></li>
+                            </ul>
+                            <hr class="my-2" />
+                            <div class="flex justify-between text-xl font-bold text-red-800">
+                                <span>Total TCO:</span>
+                                <span>₹${tco.toLocaleString('en-IN')}</span>
+                            </div>
+                        </div>
+                        <div class="bg-green-50 p-4 rounded-lg">
+                            <h4 class="text-lg font-semibold text-green-800 mb-2">Return on Investment (ROI)</h4>
+                            <ul class="space-y-1 text-sm">
+                                <li class="flex justify-between"><span>Est. Annual Revenue:</span> <strong>₹${annualRevenue.toLocaleString('en-IN')}</strong></li>
+                                <li class="flex justify-between"><span>Total Revenue (5yr):</span> <span>₹${totalRevenue.toLocaleString('en-IN')}</span></li>
+                                <li class="flex justify-between"><span>Net Gain (5yr):</span> <span>₹${netGain.toLocaleString('en-IN')}</span></li>
+                            </ul>
+                            <hr class="my-2" />
+                            <div class="flex justify-between text-xl font-bold text-green-800">
+                                <span>Est. ROI:</span>
+                                <span>${roi.toFixed(1)}%</span>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="text-xs text-gray-500 mt-4 text-center">Disclaimer: These figures are estimates for illustrative purposes only. Actual results may vary.</p>
+                </div>
+            `;
+            document.getElementById('close-tco-modal').addEventListener('click', () => tcoModal.classList.add('hidden'));
+        }
+
+        function downloadQuoteAsPDF() {
+            if (!currentQuote || !window.jspdf) {
+                console.error("Quote data or jsPDF library not available.");
+                return;
+            }
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+            
+            let y = 20;
+            const FONT_SIZE_H1 = 16;
+            const FONT_SIZE_H2 = 12;
+            const FONT_SIZE_BODY = 10;
+            const LINE_HEIGHT = 7;
+            const MARGIN = 15;
+            const PAGE_WIDTH = doc.internal.pageSize.getWidth();
+
+            doc.setFontSize(FONT_SIZE_H1);
+            doc.setFont('helvetica', 'bold');
+            doc.text('GE HealthCare Equipment Quote', PAGE_WIDTH / 2, y, { align: 'center' });
+            y += LINE_HEIGHT * 2;
+
+            doc.setFontSize(FONT_SIZE_BODY);
+            doc.setFont('helvetica', 'normal');
+            doc.text(`Quote Number: ${currentQuote.quoteNumber}`, MARGIN, y);
+            doc.text(`Valid Until: ${currentQuote.validUntil}`, PAGE_WIDTH - MARGIN, y, { align: 'right' });
+            y += LINE_HEIGHT;
+            doc.text(`Date Generated: ${new Date().toLocaleDateString()}`, MARGIN, y);
+            y += LINE_HEIGHT * 2;
+
+            doc.setFontSize(FONT_SIZE_H2);
+            doc.setFont('helvetica', 'bold');
+            doc.text('1. Equipment Configuration', MARGIN, y);
+            y += LINE_HEIGHT;
+            doc.setFontSize(FONT_SIZE_BODY);
+            doc.setFont('helvetica', 'normal');
+            doc.text(`- Equipment: ${currentQuote.equipment.name}`, MARGIN + 5, y);
+            doc.text(`₹${currentQuote.costs.equipment.toLocaleString('en-IN')}`, PAGE_WIDTH - MARGIN, y, { align: 'right' });
+            y += LINE_HEIGHT;
+
+            doc.setFontSize(FONT_SIZE_H2);
+            doc.setFont('helvetica', 'bold');
+            doc.text('2. Selected Accessories', MARGIN, y);
+            y += LINE_HEIGHT;
+            doc.setFontSize(FONT_SIZE_BODY);
+            doc.setFont('helvetica', 'normal');
+            currentQuote.accessories.forEach(acc => {
+                doc.text(`- ${acc.name}`, MARGIN + 5, y);
+                doc.text(`₹${acc.price.toLocaleString('en-IN')}`, PAGE_WIDTH - MARGIN, y, { align: 'right' });
+                y += LINE_HEIGHT;
+            });
+
+            y += LINE_HEIGHT;
+            doc.setFontSize(FONT_SIZE_H2);
+            doc.setFont('helvetica', 'bold');
+            doc.text('3. Cost Breakdown', MARGIN, y);
+            y += LINE_HEIGHT;
+            const costItems = [
+                { label: 'Subtotal', value: currentQuote.costs.subtotal, bold: true },
+                { label: `GST/VAT`, value: currentQuote.costs.gst },
+                { label: 'Import Duty', value: currentQuote.costs.importDuty },
+                { label: 'BIS Certification', value: currentQuote.costs.bisCertification },
+                { label: 'TOTAL', value: currentQuote.costs.total, bold: true, size: FONT_SIZE_H2 },
+            ];
+            costItems.forEach(item => {
+                if (item.label === 'TOTAL') {
+                    y += 2;
+                    doc.line(MARGIN, y, PAGE_WIDTH - MARGIN, y);
+                    y += LINE_HEIGHT - 2;
+                }
+                doc.setFont('helvetica', item.bold ? 'bold' : 'normal');
+                doc.setFontSize(item.size || FONT_SIZE_BODY);
+                doc.text(item.label, MARGIN, y);
+                doc.text(`₹${item.value.toLocaleString('en-IN')}`, PAGE_WIDTH - MARGIN, y, { align: 'right' });
+                y += LINE_HEIGHT;
+            });
+            
+            doc.save(`GE_Healthcare_Quote_${currentQuote.quoteNumber}.pdf`);
+        }
+
+        function resetConfigurator() {
+            selectedEquipment = null;
+            selectedAccessories = [];
+            siteRequirements = { roomLength: '', roomWidth: '', powerCapacity: '', location: 'india' };
+            currentQuote = null;
+            currentStep = 1;
+            
+            // Reset UI
+            document.querySelectorAll('.equipment-card').forEach(c => c.classList.remove('border-blue-500', 'bg-blue-50', 'shadow-lg'));
+            accessoriesPanel.classList.add('hidden');
+            sitePanel.classList.add('hidden');
+            quoteSummary.classList.add('hidden');
+            placeholder.classList.remove('hidden');
+            document.getElementById('room-length').value = '';
+            document.getElementById('room-width').value = '';
+            document.getElementById('power-capacity').value = '';
+            compatibilityCheck.classList.add('hidden');
+            tcoModal.classList.add('hidden');
+            updateUIForStep(1);
+        }
+
+        // --- Event Listeners and Initial Rendering ---
+        window.onload = function() {
+            renderEquipmentList();
+            
+            continueToSiteButton.addEventListener('click', () => updateUIForStep(3));
+            
+            generateQuoteButton.addEventListener('click', () => {
+                updateUIForStep(4);
+                generateQuote();
+            });
+            
+            resetButton.addEventListener('click', () => resetConfigurator());
+
+            roomLengthInput.addEventListener('input', () => {
+                siteRequirements.roomLength = roomLengthInput.value;
+                updateCompatibilityUI();
+            });
+            roomWidthInput.addEventListener('input', () => {
+                siteRequirements.roomWidth = roomWidthInput.value;
+                updateCompatibilityUI();
+            });
+            powerCapacityInput.addEventListener('input', () => {
+                siteRequirements.powerCapacity = powerCapacityInput.value;
+                updateCompatibilityUI();
+            });
+            locationSelect.addEventListener('change', (e) => {
+                siteRequirements.location = e.target.value;
+                updateCompatibilityUI();
+            });
+        };
+    </script>
+</body>
+</html>
