@@ -7,61 +7,64 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="configurator-container">
-        <div class="accessories-section">
-            </div>
 
-        <div class="feasibility-section">
-            <h3>3. Site Feasibility Check</h3>
-            <form id="feasibility-form">
-                <div class="form-grid">
-                    <input type="number" id="roomLength" placeholder="e.g., 8" required>
-                    <input type="number" id="roomWidth" placeholder="e.g., 6" required>
-                    <input type="number" id="powerCapacity" placeholder="e.g., 150" required>
-                    <select id="location" required>
-                        <option value="" disabled selected>Location</option>
-                        <option value="India">India</option>
-                        <option value="USA">USA</option>
-                        <option value="Germany">Germany</option>
-                    </select>
+    <div class="main-container">
+        <div class="configurator-column">
+            <div class="accessories-section">
+                <h3>2. Smart Accessories Recommendation</h3>
                 </div>
-                <button type="submit" id="generateQuoteBtn" disabled>Generate Instant Quote</button>
-            </form>
-        </div>
-    </div>
 
-    <div class="sidebar">
-        <div id="quote-section" class="hidden">
-            <div class="quote-box">
-                <h4>Quote #GE-65696565</h4>
-                <p class="valid-until">Valid until: 8/24/2025</p>
-                <div class="quote-details">
-                    <span>Equipment</span><span>₹12,00,000</span>
-                    <span>Accessories</span><span>₹1,10,000</span>
-                    <span>Services</span><span>₹15,000</span>
-                </div>
-                <hr>
-                <div class="quote-details">
-                    <span>Subtotal</span><span>₹13,25,000</span>
-                    <span>GST/VAT</span><span>₹1,59,000</span>
-                    <span>Import Duty</span><span>₹90,000</span>
-                    <span>BIS Certification</span><span>₹5,000</span>
-                </div>
-                <hr>
-                <div class="quote-total">
-                    <span>Total</span><span>₹15,79,000</span>
-                </div>
+            <div class="feasibility-section">
+                <h3>3. Site Feasibility Check</h3>
+                <form id="feasibility-form">
+                    <div class="form-grid">
+                        <input type="number" id="roomLength" placeholder="e.g., 8" required>
+                        <input type="number" id="roomWidth" placeholder="e.g., 6" required>
+                        <input type="number" id="powerCapacity" placeholder="e.g., 150" required>
+                        <select id="location" required>
+                            <option value="" disabled selected>Location</option>
+                            <option value="India">India</option>
+                            <option value="USA">USA</option>
+                            <option value="Germany">Germany</option>
+                        </select>
+                    </div>
+                    <button type="submit" id="generateQuoteBtn" disabled>Generate Instant Quote</button>
+                </form>
             </div>
         </div>
 
-        <div class="financing-calculator">
+        <div class="sidebar-column">
+            <div id="quote-section" class="hidden">
+                <div class="quote-box">
+                    <h4>Quote #GE-65696565</h4>
+                    <p class="valid-until">Valid until: 8/24/2025</p>
+                    <div class="quote-details">
+                        <span>Equipment</span><span>₹12,00,000</span>
+                        <span>Accessories</span><span>₹1,10,000</span>
+                        <span>Services</span><span>₹15,000</span>
+                    </div>
+                    <hr>
+                    <div class="quote-details">
+                        <span>Subtotal</span><span>₹13,25,000</span>
+                        <span>GST/VAT</span><span>₹1,59,000</span>
+                        <span>Import Duty</span><span>₹90,000</span>
+                        <span>BIS Certification</span><span>₹5,000</span>
+                    </div>
+                    <hr>
+                    <div class="quote-total">
+                        <span>Total</span><span>₹15,79,000</span>
+                    </div>
+                </div>
             </div>
-        <div class="action-buttons">
-            <button class="analyze-btn">Analyze 5-Year TCO & ROI</button>
-            <button class="download-btn">Download Quote</button>
+
+            <div class="action-buttons">
+                <button class="analyze-btn">Analyze 5-Year TCO & ROI</button>
+                <button class="download-btn">Download Quote</button>
+            </div>
         </div>
     </div>
 
     <script src="script.js"></script>
+
 </body>
 </html>
