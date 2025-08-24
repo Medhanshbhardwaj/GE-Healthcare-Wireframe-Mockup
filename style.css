@@ -1,0 +1,13 @@
+/* Add this to your existing style.css file */
+
+/* Helper class to hide elements */
+.hidden {
+    display: none;
+}
+
+/* Style for the disabled button to make it look inactive */
+#generateQuoteBtn:disabled {
+    background-color: #005eb8; /* A slightly faded blue */
+    opacity: 0.5;
+    cursor: not-allowed;
+}
